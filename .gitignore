@@ -13,5 +13,10 @@ node_modules
 *.tmp
 *~
 
+# no transpiled stuff on git
+dist
+public/dist
+
+
 # IntelliJ project files
 .idea
