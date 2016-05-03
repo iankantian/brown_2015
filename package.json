@@ -1,0 +1,29 @@
+{
+  "name": "brown_2015",
+  "version": "1.0.0",
+  "description": "working from text \"Learning JavaScript\" by Ethan Brown 2015",
+  "main": "main.js",
+  "dependencies": {
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iankantian/brown_2015.git"
+  },
+  "keywords": [
+    "tutorial",
+    "JavaScript",
+    "ES6",
+    "Harmony"
+  ],
+  "author": "Joshua Brown",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iankantian/brown_2015/issues"
+  },
+  "homepage": "https://github.com/iankantian/brown_2015#readme"
+}
