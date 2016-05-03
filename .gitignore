@@ -1,9 +1,17 @@
-### Example user template template
-### Example user template
+### Gitignore files
+
+# npm debugging logs
+npm-debug.log*
+
+# project dependencies
+node_modules
+
+# OSX folder attributes
+.DS_Store
+
+# temporary files
+*.tmp
+*~
 
 # IntelliJ project files
 .idea
-*.iml
-out
-gen
-# Created by .ignore support plugin (hsz.mobi)
