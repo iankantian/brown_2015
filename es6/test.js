@@ -11,11 +11,17 @@ const sentences = [
 // es6 feature: object destructuring
 function say( { subject, verb, object } ){
     // es6 feature: template strings
-    //console.log( '${subject} ${verb} ${object}' );
-    console.log( subject, verb, object );
+    console.log( `${subject} ${verb} ${object}` );
+    //console.log( subject, verb, object );
 }
 
 // es6 feature: for..of
 for( let s of sentences ){
     say( s );
 }
+
+const now = new Date();
+console.log( now.getTime() );
+const numStr = '33.3';
+const num = Number( numStr );
+console.log( 'numStr is', numStr, 'num is', num );
