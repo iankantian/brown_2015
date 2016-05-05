@@ -17,3 +17,7 @@ gulp.task('default', function(){
         .pipe(babel())
         .pipe(gulp.dest('public/dist'));
 });
+
+gulp.task('watch', function () {
+    gulp.watch('./es6/**/*.js', ['default']);
+});
