@@ -63,3 +63,5 @@ while( funds > 1 && funds < 100 ){
     console.log( `\twinnings: ${winnings}` );
 }
 
+console.log( `ending funds: ${funds} pence` );
+
