@@ -3,42 +3,71 @@
  */
 'use strict';
 
+//reduce!  It's a powerful map feature.
+const words = [ 'Beachball',
+    'Rodeo',
+    'Angel',
+    'Aardvark',
+    'Xylophone',
+    'November',
+    'Chocolate',
+    'Papaya',
+    'Uniform',
+    'Joker',
+    'Clover',
+    'Bali' ];
+const alphabetical = words.reduce( ( a, x ) => {
+    if( ! a[ x[ 0 ] ] ) a[ x[ 0 ] ] = [ ];
+    a[ x[ 0 ]].push( x );
+    return a;
+}, {}  );
+
+console.log( 'alphabetical is', alphabetical );
+
+//let barry = new Array( 16 ).fill( 0 );
+//console.log( 'barry before digitty  map', barry );
+//const one_barry = barry.map( ()=>1);
+//console.log( 'maps can be used by smart-asses instead of fill to be abstruse', one_barry );
+//one_barry.fill( 'filler', 8 );
+//console.log( 'one_barry doing some filler...', one_barry );
+
+
 // filter it
-const cards = [];
-for( let suit of ['\u2665', '\u2663', '\u25c6', '\u2660'] ){
-    for( let value = 1; value < 13; value++ ){
-        cards.push( { suit, value } );
-    }
-}
+//const cards = [];
+//for( let suit of ['\u2665', '\u2663', '\u25c6', '\u2660'] ){
+//    for( let value = 1; value < 13; value++ ){
+//        cards.push( { suit, value } );
+//    }
+//}
+//
+//const face_enabled = cards.map( ( ( x )=>{
+//    switch( x.value ){
+//        case 1:
+//            x.value = 'A';
+//            break;
+//        case 10:
+//            x.value = 'J';
+//            break;
+//        case 11:
+//            x.value = 'Q';
+//            break;
+//        case 12:
+//            x.value = 'K';
+//            break;
+//        default:
+//            // shouldn't be here!
+//            break;
+//    }
+//    return { suit: x.suit, value: x.value };
+//} ) );
+//
+//console.log( 'ace_enabled is', face_enabled );
+//
+//const just_twos = cards.filter( c => c.value === 2 );
+//const just_kings = face_enabled.filter( c => c.value === 'K' );
+//console.log( just_twos );
+//console.log( just_kings );
 
-
-const face_enabled = cards.map( ( function( x ){
-    switch( x.value ){
-        case 1:
-            x.value = 'A';
-            break;
-        case 10:
-            x.value = 'J';
-            break;
-        case 11:
-            x.value = 'Q';
-            break;
-        case 12:
-            x.value = 'K';
-            break;
-        default:
-            // shouldn't be here!
-            break;
-    }
-    return { suit: x.suit, value: x.value };
-} ) );
-
-console.log( 'ace_enabled is', face_enabled );
-
-const just_twos = cards.filter( c => c.value === 2 );
-const just_kings = face_enabled.filter( c => c.value === 'K' );
-console.log( just_twos );
-console.log( just_kings );
 //// map it.
 //const items = [ 'hairbrush', 'Lexus' ];
 //const prices = [ 5, 50000 ];
