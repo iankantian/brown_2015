@@ -3,26 +3,275 @@
  */
 'use strict';
 
-//reduce!  It's a powerful map feature.
-const words = [ 'Beachball',
-    'Rodeo',
-    'Angel',
-    'Aardvark',
-    'Xylophone',
-    'November',
-    'Chocolate',
-    'Papaya',
-    'Uniform',
-    'Joker',
-    'Clover',
-    'Bali' ];
-const alphabetical = words.reduce( ( a, x ) => {
-    if( ! a[ x[ 0 ] ] ) a[ x[ 0 ] ] = [ ];
-    a[ x[ 0 ]].push( x );
-    return a;
-}, {}  );
+// using IIFE in a non-block scoped variable i
+var i;
+for( i = 5; i >= 0; i-- ){
+    (function( i ){
+        setTimeout( function(){
+            console.log( i === 0 ? 'go!' : i );
+        }, ( 5 - i ) * 1000 );
+    })( i );
+}
 
-console.log( 'alphabetical is', alphabetical );
+
+//function getRainbowIterator(){
+//    const colors = ['lightgray','darkgray','gray'];
+//    let colorIndex = -1;
+//    return {
+//        next(){
+//            if( ++colorIndex >= colors.length ) colorIndex = 0;
+//            return { value: colors[colorIndex], done: false };
+//        }
+//    };
+//}
+//
+//const rainbowIterator = getRainbowIterator();
+//setInterval( function(){
+//    document.querySelector('.rainbow')
+//        .style['background-color'] = rainbowIterator.next().value;
+//}, 2000 );
+
+//function* rainbow(){
+//    yield 'red';
+//    yield 'orange';
+//}
+//
+//for( let color of rainbow() ){
+//    console.log( color );
+//}
+
+
+//function makeIterator(array){
+//    var nextIndex = 0;
+//
+//    return {
+//        next: function(){
+//            return nextIndex < array.length ?
+//            {value: array[nextIndex++], done: false} :
+//            {done: true};
+//        }
+//    };
+//}
+//
+//const book = [
+//    'Twinkle little bat!',
+//    'How I wonder',
+//    'Upa above the world',
+//    'Like a tea tray in sky',
+//    'Twinkle litte bat',
+//    'How I wonder what your at!'
+//];
+//
+////var it = makeIterator(book);
+//
+//for( let i = 0; i< book.length; i++ ){
+//    console.log( book[ i ]);
+//}
+
+//// iteration protocol allows treating objects like arrays.
+//// however, obj.values() is still not a function, not understanding chapter in text.
+//class Log {
+//    constructor() {
+//        this.messages = [];
+//    }
+//    add( message ){
+//        this.messages.push( { message, timestamp: Date.now() } );
+//    }
+//    [ Symbol.iterator ](){
+//        return this.messages.values();
+//    }
+//}
+//
+//const log = new Log();
+//log.add('arg, first day at sea');
+//log.add('spotted wale');
+//log.add('spotted another whale');
+//log.add('saw another boat');
+//
+//for( let entry of log ){
+//    console.log(`${ entry.message } @ ${ entry.timestamp }`);
+//}
+
+//// Iterators as described in text are broken, check MDN: you have to put it into custom iterator functions like:
+//function makeIterator(array){
+//    var nextIndex = 0;
+//
+//    return {
+//        next: function(){
+//            return nextIndex < array.length ?
+//            {value: array[nextIndex++], done: false} :
+//            {done: true};
+//        }
+//    }
+//}
+//// even in es6 compatible browsers, like firefox.
+
+//const book = [
+//    'Twinkle little bat!',
+//    'How I wonder',
+//    'Upa above the world',
+//    'Like a tea tray in sky',
+//    'Twinkle litte bat',
+//    'How I wonder what your at!'
+//];
+//
+//const it = book.values();
+//
+//console.log( it.next() );
+
+//const u1 = { name:'Cynthia'};
+//const u2 = { name:'Jackson'};
+//const u3 = { name:'Olive'};
+//const u4 = { name:'Jame'};
+//const userRoles = new Map();
+
+//userRoles.set( u1, 'User');
+//userRoles.set( u2, 'User');
+//userRoles.set( u3, 'Admin');
+
+//userRoles // chainable C-C-Combo!
+//    .set( u1, 'User')
+//    .set( u2, 'User')
+//    .set( u3, 'Admin');
+
+//console.log( userRoles.get( u3 ));
+//console.log( userRoles.has( u4 ));
+
+//// keys, values, entries on a map
+//for( let u of userRoles.keys()) console.log(u.name);
+//for( let r of userRoles.values()) console.log(r);
+//for( let s of userRoles.entries())
+//    console.log(`${s[0].name}: ${s[1]}`);
+
+//class Super {
+//    constructor(){
+//        this.name = 'Super';
+//        this.isSuper = true;
+//    }
+//}
+//Super.prototype.sneaky = 'not recommended'; // syntactically valid, but bad idea
+//
+//class Sub extends Super {
+//    constructor(){
+//        super();
+//        this.name = 'Sub';
+//        this.isSub = true;
+//    }
+//}
+//
+//const obj = new Sub();
+//
+//for( let p in obj ){
+//    console.log(`${ p }: ${ obj[ p ] }` +
+//        ( obj.hasOwnProperty( p ) ? '' : ' (inherited)' ) );
+//}
+
+//class Vehicle {
+//    constructor(){
+//        this.passengers = [];
+//        console.log( 'Vehicle created' );
+//    }
+//    addPassenger( p ){
+//        this.passengers.push( p );
+//        console.log( `seated ${ p }` );
+//    }
+//    ejectPassenger( p ){
+//        this.passengers = this.passengers.filter( ( n )=> n !== p );
+//        console.log( `ejected ${ p }` );
+//    }
+//}
+//class Car extends Vehicle {
+//    constructor(){
+//        super(); // invokes the superclass constructor, why we need this, because errors that's why?
+//        console.log( 'Car created');
+//    }
+//    deployAirbags(){
+//        console.log( 'Bwoosh!');
+//    }
+//}
+// Big warning in the firefox browser while running the ES5 transpilation AND pure es6:
+// mutating the [[Prototype]] of an object will cause your code to run very slowly; instead create the object with the correct initial [[Prototype]] value using Object.create
+// no complaints when running the straight es6 code in chrome.
+//const bob = new Car();
+//bob.deployAirbags();
+
+
+//// using WeakMap() to make truly enforce private properties:
+//const Car = (function(){
+//    const carProps = new WeakMap();
+//
+//    class Car {
+//        static getNextVin(){
+//            return Car.nextVin++;
+//        }
+//        constructor( make, model ){
+//            this.make = make;
+//            this.model = model;
+//            this.vin = Car.getNextVin();
+//            this._userGears = [ 'P', 'N', 'R', 'D' ];
+//            carProps.set( this, { userGear: this._userGears[ 0 ] } );
+//        }
+//        static areSimilar( car1, car2 ){
+//            return car1.make === car2.make && car1.model === car2.model;
+//        }
+//        static areSame( car1, car2 ){
+//            return car1.vin === car2.vin;
+//        }
+//        get userGear() { return carProps.get( this ).userGear; }
+//        set userGear( value ) {
+//            if( this._userGears.indexOf( value ) < 0 ) {
+//                throw new Error(`Invalid gear: ${ value }`);
+//            }
+//            carProps.get( this ).userGear = value;
+//            console.log( `gear is now ${ value }` );
+//        }
+//        shift( gear ){
+//            this.userGear = gear;
+//        }
+//    }
+//    Car.nextVin = 1;
+//    return Car;
+//})();
+//
+//const car1 = new Car('Tesla', 'S');
+//const car2 = new Car('Mazda', '3');
+//const car3 = new Car('Mazda', '3');
+//
+//
+//console.log( car1.vin );
+//console.log( car2.vin );
+//console.log( car3.vin );
+//
+//console.log( Car.areSame( car3, car2 ) );
+
+//car1.shift === Car.prototype.shift ? console.log( 'true' ) : console.log( 'false' );
+////console.log( car1.userGear );
+//car1.shift('D');
+////car1.shift('d');
+////car1.shift === car2.shift ? console.log( 'true' ) : console.log( 'false' );
+//car1.shift = function( gear ){ this.userGear = gear.toUpperCase() };
+//car1.shift === Car.prototype.shift ? console.log( 'true' ) : console.log( 'false' );
+
+////reduce!  It's a powerful map feature.
+//const words = [ 'Beachball',
+//    'Rodeo',
+//    'Angel',
+//    'Aardvark',
+//    'Xylophone',
+//    'November',
+//    'Chocolate',
+//    'Papaya',
+//    'Uniform',
+//    'Joker',
+//    'Clover',
+//    'Bali' ];
+//const alphabetical = words.reduce( ( a, x ) => {
+//    if( ! a[ x[ 0 ] ] ) a[ x[ 0 ] ] = [ ];
+//    a[ x[ 0 ]].push( x );
+//    return a;
+//}, {}  );
+//
+//console.log( 'alphabetical is', alphabetical );
 
 //let barry = new Array( 16 ).fill( 0 );
 //console.log( 'barry before digitty  map', barry );
