@@ -1,7 +1,6 @@
 const gulp = require('gulp');
 const babel = require('gulp-babel');
 const eslint = require('gulp-eslint');
-// gulp dependencies go here
 
 gulp.task('default', function(){
     // run eslint
