@@ -2,72 +2,170 @@
  * Created by joshuabrown on 5/10/16.
  */
 
-const EventEmitter = require('events').EventEmitter;
 
-class Countdown extends EventEmitter{
-    constructor( seconds, superstitious ){
-        super();
-        this.seconds = seconds;
-        this.superstitious = !!superstitious;
-    }
-    go(){
-        const countdown = this;
-        const timeoutIds = [];
-        return new Promise( function ( resolve, reject ){
-            for( let i = countdown.seconds; i >= 0; i-- ){
-                timeoutIds.push( setTimeout( function (){
-                    if( countdown.superstitious && i === 13 ){
-                        timeoutIds.forEach( clearTimeout ); // this cleverly removes the timeouts!
-                        return reject( new Error('not going to say it...'));
-                    }
-                    countdown.emit( 'tick', i );
-                    if( i === 0 || i < 0 ) resolve();
-                }, ( countdown.seconds - i ) * 1000 ) );
-            }
-        });
-    }
-}
 
-const c = new Countdown( 5, true ).on('tick', function( i ){
-    if( i > 0 ) console.log( i + '...' );
-});
 
-function launch(){
-    return new Promise( function( resolve, reject ){
-        if( Math.random() >= 0.5 ) return;
-        console.log( 'liftoff!' );
-        setTimeout( function(){
-            resolve( 'in orbit' );
-        }, 2000 );
-    });
-}
+//const roles = new Set();
+//roles.add('User');
+//roles.add('Admin');
+//console.log(roles);
 
-// non trivial addition of timeout to a promise
-function addTimeout( fn, timeout = 1000 ){
-    return function( ...args ){
-        return new Promise( function( resolve, reject ){
-            const tid = setTimeout( reject, timeout, new Error('promise timed out'));
-            fn(...args )
-                .then( function(...args){
-                    clearTimeout( tid );
-                    resolve(...args);
-                })
-                .catch( function(...args ){
-                    clearTimeout( tid );
-                    reject(...args);
-                });
-        });
-    };
-}
+//const SecretHolder = (function(){
+//    const secrets = new WeakMap();
+//    return class{
+//        setSecret(secret){
+//            secrets.set(this, secret);
+//        }
+//        getSecret(){
+//            return secrets.get(this);
+//        }
+//    }
+//})();
+//
+//const a = new SecretHolder();
+//const b = new SecretHolder();
+//
+//a.setSecret('secret A');
+//b.setSecret('secret B');
+//
+//console.log(a.getSecret());
+//console.log(b.getSecret());
 
-c.go()
-    .then( addTimeout( launch, 1000 ))
-    .then( function( msg ){
-        console.log( msg );
-    })
-    .catch( function ( derp ){
-        console.error( 'Houston we have a problem...', derp.message );
-    });
+//const u1 = {name: 'Cynthia'};
+//const u2 = {name: 'Jackson'};
+//const u3 = {name: 'Olive'};
+//const u4 = {name: 'James'};
+//
+//const userRoles = new Map();
+//
+////userRoles.set(u1, 'User');
+////userRoles.set(u2, 'User');
+////userRoles.set(u3, 'Admin');
+//
+//userRoles.set(u1, 'User')
+//    .set(u2, 'User')
+//    .set(u3, 'User');
+//
+//console.log(userRoles.get(u1));
+//console.log(userRoles.get(u2));
+//console.log(userRoles.get(u3));
+//console.log(userRoles.get(u4));
+//console.log(userRoles.size);
+//
+//for(let u of userRoles.keys()) console.log(u.name);
+//
+//for(let ur of userRoles.entries())  console.log(ur.name);
+
+//const fs = require('fs');
+//
+//// this will turn error-first callbacks into promises
+//// based on nfcall from the Q promise library.
+//function nfcall( f, ...args ){  // take in the function and ALL it's arguments with spread operator.
+//    return new Promise( function( resolve, reject ){ // Promise format, resolve and reject will be provided when invoking function.
+//        f.call( null, ...args, function( err,...args ){ // you call( null means that 'this' isn't anything :(, then all the arguments are passed, and you pass a function into it as a final argument,
+//            if( err ) return reject( err );
+//            resolve( args.length < 2 ? args[ 0 ] : args );
+//        });
+//    });
+//}
+//
+//function ptimeout( delay ){
+//    return new Promise( function( resolve, reject ){
+//        setTimeout( resolve, delay ); // old school call back method
+//    });
+//}
+//
+//// generator run, or GRUN based on runGenerator in davidwalsh.name/es6-generators
+//function grun( g ) {
+//    const it = g();
+//    ( function iterate( val ){
+//        const x = it.next( val );
+//        if( !x.done ){
+//            if( x.value instanceof Promise ) {
+//                x.value.then( iterate).catch( err => it.throw( err ));
+//            } else {
+//                setTimeout( iterate, 0, x.value );  //gets underlined, too many arguments!!!
+//            }
+//        }
+//    } )();
+//}
+//
+//function* theFutureIsNow(){
+//    const dataA = yield nfcall(fs.readFile, 'a.txt');
+//    const dataB = yield nfcall(fs.readFile, 'b.txt');
+//    const dataC = yield nfcall(fs.readFile, 'c.txt');
+//    yield ptimeout( 60*1000 );
+//    yield nfcall(fs.writeFile, 'd.txt', dataA + dataB + dataC );
+//}
+//
+//grun( theFutureIsNow() );
+
+//const EventEmitter = require('events').EventEmitter;
+//
+//class Countdown extends EventEmitter{
+//    constructor( seconds, superstitious ){
+//        super();
+//        this.seconds = seconds;
+//        this.superstitious = !!superstitious;
+//    }
+//    go(){
+//        const countdown = this;
+//        const timeoutIds = [];
+//        return new Promise( function ( resolve, reject ){
+//            for( let i = countdown.seconds; i >= 0; i-- ){
+//                timeoutIds.push( setTimeout( function (){
+//                    if( countdown.superstitious && i === 13 ){
+//                        timeoutIds.forEach( clearTimeout ); // this cleverly removes the timeouts!
+//                        return reject( new Error('not going to say it...'));
+//                    }
+//                    countdown.emit( 'tick', i );
+//                    if( i === 0 || i < 0 ) resolve();
+//                }, ( countdown.seconds - i ) * 1000 ) );
+//            }
+//        });
+//    }
+//}
+//
+//const c = new Countdown( 5, true ).on('tick', function( i ){
+//    if( i > 0 ) console.log( i + '...' );
+//});
+//
+//function launch(){
+//    return new Promise( function( resolve, reject ){
+//        if( Math.random() >= 0.5 ) return;
+//        console.log( 'liftoff!' );
+//        setTimeout( function(){
+//            resolve( 'in orbit' );
+//        }, 2000 );
+//    });
+//}
+//
+//// non trivial addition of timeout to a promise
+//function addTimeout( fn, timeout = 1000 ){
+//    return function( ...args ){
+//        return new Promise( function( resolve, reject ){
+//            const tid = setTimeout( reject, timeout, new Error('promise timed out'));
+//            fn(...args )
+//                .then( function(...args){
+//                    clearTimeout( tid );
+//                    resolve(...args);
+//                })
+//                .catch( function(...args ){
+//                    clearTimeout( tid );
+//                    reject(...args);
+//                });
+//        });
+//    };
+//}
+//
+//c.go()
+//    .then( addTimeout( launch, 1000 ))
+//    .then( function( msg ){
+//        console.log( msg );
+//    })
+//    .catch( function ( derp ){
+//        console.error( 'Houston we have a problem...', derp.message );
+//    });
 
 
 //const EventEmitter = require('events').EventEmitter;

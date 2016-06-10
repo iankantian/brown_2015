@@ -15,6 +15,8 @@ gulp.task('default', function(){
     gulp.src('public/es6/**/*.js')
         .pipe(babel())
         .pipe(gulp.dest('public/dist'));
+    gulp.src('es6/*.txt')
+        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('watch', function () {
